@@ -1,0 +1,20 @@
+{
+    "name": "lenovo/custom-php-mvc-framework",
+    "description": "PHP MVC Framework from Scratch",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "khouloudhaddad",
+            "email": "khouloud.haddad@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {
+
+    }
+}
