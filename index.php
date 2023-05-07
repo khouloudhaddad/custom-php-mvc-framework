@@ -12,4 +12,8 @@ $app->router->get('/',  function(){
     return "Helllo";
 });
 
+$app->router->get('/contact',  function(){
+    return "Contact page";
+});
+
 $app->run();
