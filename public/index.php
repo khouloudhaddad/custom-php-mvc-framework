@@ -7,10 +7,8 @@ require __DIR__ . '/../vendor/autoload.php';
 use app\core\Application;
 
 
-$app= new Application();
-$app->router->get('/',  function(){
-    return "Helllo";
-});
+$app= new Application(dirname(__DIR__));
+$app->router->get('/',  'home');
 
 $app->router->get('/contact',  'contact');
 
