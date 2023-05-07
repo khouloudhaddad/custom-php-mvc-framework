@@ -3,7 +3,7 @@
  * User: Khouloud Haddad Amamou
  */
 
-require __DIR__.'/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 use app\core\Application;
 
 
@@ -12,8 +12,6 @@ $app->router->get('/',  function(){
     return "Helllo";
 });
 
-$app->router->get('/contact',  function(){
-    return "Contact page";
-});
+$app->router->get('/contact',  'contact');
 
 $app->run();
