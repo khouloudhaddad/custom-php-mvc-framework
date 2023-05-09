@@ -32,7 +32,7 @@ class Router
     public function resolve()
     {
         $path = $this->request->getPath();
-        $method = $this->request->getMethod();
+        $method = $this->request->method();
 
         $callback = $this->routes[$method][$path] ?? false;
 
@@ -45,10 +45,17 @@ class Router
         if(is_string($callback)){
             echo $this->renderView($callback);
         }
-        return call_user_func($this->isCheck($callback));
+
+        if(is_array($callback)){
+            Application::$app->controller = new $callback[0]();
+            $callback[0] = Application::$app->controller;
+        }
+
+
+        return call_user_func($callback, $this->request);
     }
 
-    public function renderView($view, $params = []): string
+    public function renderView($view, $params = []) : string
     {
         $layoutContent = $this->layoutContent();
         $viewContent = $this->renderOnlyView($view, $params);
@@ -58,8 +65,9 @@ class Router
 
     protected function layoutContent(): string|false
     {
+        $layout = Application::$app->controller->layout;
         ob_start();
-        include_once Application::$ROOT_DIR."/views/layouts/main.php";
+        include_once Application::$ROOT_DIR."/views/layouts/$layout.php";
         return ob_get_clean();
     }
 
@@ -73,15 +81,4 @@ class Router
         return ob_get_clean();
     }
 
-    /**
-     * @param $callback
-     * @return mixed
-     */
-    private function isCheck($callback)
-    {
-        if(is_array($callback))
-            $callback[0] = new $callback[0];
-
-        return $callback;
-    }
 }

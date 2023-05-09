@@ -3,8 +3,10 @@
 namespace app\controllers;
 
 use app\core\Application;
+use app\core\Controller;
+use app\core\Request;
 
-class SiteController
+class SiteController extends Controller
 {
 
     public function home()
@@ -13,14 +15,15 @@ class SiteController
             "name" => "John",
             "surname" => "Doe"
         ];
-        echo  Application::$app->router->renderView('home', $params);
+        echo $this->render('home', $params);
     }
     public function contact()
     {
-        echo  Application::$app->router->renderView('contact');
+        echo  $this->render('contact');
     }
-    public function handleContact()
+    public function handleContact(Request $request)
     {
-        echo 'handling submitted data';
+        $body = $request->getBody();
+        var_dump($body);
     }
 }
