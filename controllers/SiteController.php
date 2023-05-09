@@ -9,7 +9,11 @@ class SiteController
 
     public function home()
     {
-        echo  Application::$app->router->renderView('home');
+        $params = [
+            "name" => "John",
+            "surname" => "Doe"
+        ];
+        echo  Application::$app->router->renderView('home', $params);
     }
     public function contact()
     {
@@ -17,6 +21,6 @@ class SiteController
     }
     public function handleContact()
     {
-        echo  'handling submitted data';
+        echo 'handling submitted data';
     }
 }
