@@ -45,8 +45,7 @@ class Router
         if(is_string($callback)){
             echo $this->renderView($callback);
         }
-
-        echo call_user_func($callback);
+        return call_user_func($this->isCheck($callback));
     }
 
     public function renderView($view): string
@@ -69,5 +68,17 @@ class Router
         ob_start();
         include_once Application::$ROOT_DIR."/views/$view.php";
         return ob_get_clean();
+    }
+
+    /**
+     * @param $callback
+     * @return mixed
+     */
+    private function isCheck($callback)
+    {
+        if(is_array($callback))
+            $callback[0] = new $callback[0];
+
+        return $callback;
     }
 }
